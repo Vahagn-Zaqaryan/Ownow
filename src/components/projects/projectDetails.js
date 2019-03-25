@@ -11,35 +11,42 @@ const ProjectDetails = (props) => {
     if(!auth.uid) return <Redirect to='/signin'/>
 
     if(project){
-       var contents;
-        project.content.replace(/(?:\r\n|\r|\n)/g, '<br />')
-        let tokens = project.content.split(/\s/);
-        let urlRegex = /(https?:\/\/[^\s]+)/g;
-        contents = tokens.map((token, i) => {
-            let hasSpace = i !== (tokens.length - 1);
-            let maybeSpace = hasSpace ? ' ' : '';
 
-            if (token.match(urlRegex)){
-                return (
-                    <a
-                      key={i}
-                      href={token}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      {token}{maybeSpace}
-                    </a>
-                  );
-            }
-            else {
-          return token + maybeSpace;
-        }
-        });
         return (
             <div className="container section project-details">
               <div className="card z-depth-0">
                 <div className="card-content">
                   <span className="card-title">{ project.title }</span>
-                  <p>{ contents }</p>
+                  <p>{ project.content.split('\n').map(function(item, key) {
+                          var contents;
+                          let tokens = item.split(/\s/);
+                          let urlRegex = /(https?:\/\/[^\s]+)/g;
+                          contents = tokens.map((token, i) => {
+                              let hasSpace = i !== (tokens.length - 1);
+                              let maybeSpace = hasSpace ? ' ' : '';
+
+                              if (token.match(urlRegex)){
+                                  return (
+                                      <a
+                                        key={i}
+                                        href={token}
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        {token}{maybeSpace}
+                                      </a>
+                                    );
+                              }
+                              else {
+                                return token + maybeSpace;
+                              }
+                            });
+                          return (
+                            <span key={key}>
+                              {contents}
+                              <br/>
+                            </span>
+                          )
+                        }) }</p>
                 </div>
                 <div className="card-action  grey-text">
                   <div>Posted by <span className="blue-text lighten-5">{ project.firstName } { project.lastName }</span></div>

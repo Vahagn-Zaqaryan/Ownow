@@ -1,0 +1,46 @@
+$color_bombay_approx: #b3b3b9;
+$alabaster: #fafafa;
+$color_mountain_mist_approx: #919197;
+$white: #fff;
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+}
+::-webkit-scrollbar-button {
+	width: 0;
+	height: 0;
+}
+::-webkit-scrollbar-corner {
+	background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background-color: $color_bombay_approx;
+	border: 0 none $alabaster;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50px;
+	&:hover {
+		background-color: $color_mountain_mist_approx;
+	}
+}
+::-webkit-scrollbar-track {
+	background-color: $alabaster;
+	border: 0 none $white;
+	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+	border-radius: 50px;
+}
