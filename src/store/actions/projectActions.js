@@ -4,7 +4,9 @@ export const createProject = (project) => {
         const profile = getState().firebase.profile
         const uid = getState().firebase.auth.uid
         firestore.collection('projects').add({
-            ...project,
+            title: project.title,
+            content: project.content,
+            userRead: { username: project.username, read: false},
             firstName: profile.firstName,
             lastName: profile.lastName,
             uid: uid,
@@ -14,5 +16,22 @@ export const createProject = (project) => {
         }).catch((err) => {
             dispatch({ type: 'CREATE_PROJECT_ERROR', err });
         })
+    }
+};
+
+export const readProject = (project) => {
+    return (dispatch, getState, {getFireBase, getFirestore}) => {
+        const firestore = getFirestore()
+        const username = getState().firebase.profile.username
+        if (project[0].userRead.username === username && project[0].userRead.read === false){
+
+            firestore.collection('projects').doc(project[1]).update({
+                userRead: { username: project[0].userRead.username, read: true}
+            }).then(() => {
+                dispatch({ type: 'READ_PROJECT', project });
+            }).catch((err) => {
+                dispatch({ type: 'READ_PROJECT_ERROR', err });
+            })
+        }
     }
 };

@@ -13,6 +13,10 @@ const projectReducer = (state = initState, action) => {
             return state;
         case 'CREATE_PROJECT_ERROR':
             return state;
+        case 'READ_PROJECT':
+            return state;
+        case 'READ_PROJECT_ERROR':
+            return state;
         default:
             return state;
     }

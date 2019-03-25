@@ -6,9 +6,10 @@ import { signUp } from '../../store/actions/authActions'
 class SignUp extends Component {
   state = {
     email: '',
+    username: '',
     password: '',
     firstName: '',
-    lastName: '',
+    lastName: ''
   }
   handleChange = (e) => {
     this.setState({
@@ -17,6 +18,7 @@ class SignUp extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state)
     this.props.signUp(this.state)
   }
   render() {
@@ -29,6 +31,10 @@ class SignUp extends Component {
           <div className="input-field">
             <label htmlFor="email">Email</label>
             <input type="email" id='email' onChange={this.handleChange} />
+          </div>
+          <div className="input-field">
+            <label htmlFor="username">Username</label>
+            <input type="text" id='username' onChange={this.handleChange} />
           </div>
           <div className="input-field">
             <label htmlFor="password">Password</label>
