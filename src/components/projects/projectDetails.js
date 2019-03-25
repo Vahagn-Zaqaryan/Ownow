@@ -14,8 +14,18 @@ class ProjectDetails extends Component {
 
     render() {
 
-        const { project, auth } = this.props
+        const { project, auth, profile } = this.props
+
         if(!auth.uid) return <Redirect to='/signin'/>
+
+        let Read;
+        if(profile.username === project.userRead.username && project.userRead.read === false){
+            Read = <div className="card z-depth-0 hoverable center">
+                        <Link to='' className="waves-effect waves-light btn blue" onClick={this.handleClick}>
+                            <span>I Read it!</span>
+                        </Link>
+                    </div>
+        }
 
         if(project){
 
@@ -50,11 +60,7 @@ class ProjectDetails extends Component {
                               )
                             }) }</p>
                     </div>
-                    <div className="card z-depth-0 hoverable center">
-                        <Link to='' className="waves-effect waves-light btn blue" onClick={this.handleClick}>
-                            <span>I Read it!</span>
-                        </Link>
-                    </div>
+                    { Read }
                     <div className="card-action  grey-text">
                       <div>Posted by <span className="blue-text lighten-5">{ project.firstName } { project.lastName }</span></div>
                       <div>{ moment(project.timestamp.toDate()).calendar() }</div>
@@ -80,7 +86,8 @@ const mapStateToProps = (state, ownProps) => {
     const project = projects ? projects[id] : null
     return {
         project: project,
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        profile: state.firebase.profile
     }
 }
 
